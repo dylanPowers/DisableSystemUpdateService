@@ -1,6 +1,5 @@
 package me.swineson.disablesystemupdateservice;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 
 /**
@@ -16,13 +15,9 @@ public final class PropUtil {
 
     public static void disableSystemUpdateService() {
         try{
-            Process p = Runtime.getRuntime().exec("su");
-            DataOutputStream os = new DataOutputStream(p.getOutputStream());
             for (String property : PROPERTIES) {
-                os.writeBytes(COMMAND_PREFIX + property + "\n");
+                Runtime.getRuntime().exec(COMMAND_PREFIX + property);
             }
-            os.writeBytes("exit\n");
-            os.flush();
         }
         catch (IOException e){
             e.printStackTrace();
